@@ -5,6 +5,21 @@
         <title>Make Cookies</title>
     </head>
     <body>
+        <h1 id="cookie-counter">0</h1>
+        <button id="cookie-clicker">Make Cookies</button>
+        <script type="text/javascript">
+        //declare default variables
+        let cookieCount = 0;
+        let clickPower = 1;
+        //declare DOM  variables
+        let cookieCounter = document.getElementById('cookie-counter');
+        let cookieClicker = document.getElementById('cookie-clicker');
 
+        //everytime a user clicks the button, their cookies are increased by the value of their clickPower.
+        cookieClicker.addEventListener("click", function(){
+            cookieCount = cookieCount + clickPower;
+            cookieCounter.innerHTML = cookieCount;
+        })
+        </script>
     </body>
 </html>
