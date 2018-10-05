@@ -5,7 +5,7 @@
 ********************************/
 
 //declare default variables
-let cookieCount = 0;
+let cookieCount = 1000;
 let clickPower = 1;
 let clickPowerPriceAmount = 50;
 let clickPowerLevelNumber = 1;
@@ -64,4 +64,64 @@ let refreshPowerClick = function() {
     clickPowerLevel.innerHTML = clickPowerLevelNumber;
     clickPowerPrice.innerHTML = clickPowerPriceAmount;
     clickPowerMultiple.innerHTML = clickPower;
+}
+
+/********************************
+
+          Grandmas
+
+********************************/
+//set default values
+let grandmaAuto = false;
+let grandmaPower = 50;
+let grandmaPriceAmount = 500;
+let grandmaLevelNumber = 0;
+
+//declare DOM variables
+let buyGrandma = document.getElementById('buy-grandma');
+let grandmaPrice = document.getElementById('grandma-price');
+let grandmaLevel = document.getElementById('grandma-level');
+let grandmaMultiple = document.getElementById('grandma-multiple');
+
+//buy a grandma
+buyGrandma.addEventListener("click", function()
+{
+    // make sure we have enough cookies and subtract our cookies from the price
+    if(cookieCount >= grandmaPriceAmount)
+    {
+        cookieCount -= grandmaPriceAmount;
+        refreshCookieCount();
+    //upgrade power level
+        grandmaLevelNumber += 1;
+    //update price
+        grandmaPrice = Math.floor(grandmaPriceAmount * 1.33);
+    //updated grandma power
+        grandmaPower += 10;
+    //turn autoGrandma on!
+        autoGrandma = true;
+        autoGrandmaStart();
+    //refresh shop item
+        refreshGrandma();
+    }
+
+    //refresh shop item
+
+})
+
+let refreshGrandma = function()
+{
+    grandmaLevel.innerHTML = grandmaLevelNumber;
+    grandmaPrice.innerHTML = grandmaPriceAmount;
+    grandmaPower -= 10
+    grandmaMultiple.innerHTML = grandmaPower
+    console.log("Producing: " + grandmaPower + " cookies per second!");
+}
+
+let autoGrandmaStart = function()
+{
+    let grandmaInt = window.setInterval(function()
+    {
+        cookieCount += grandmaPower;
+        refreshCookieCount();
+    }, 1000)
 }
