@@ -5,7 +5,7 @@
 ********************************/
 
 //declare default variables
-let cookieCount = 1000;
+let cookieCount = 1000000;
 let clickPower = 1;
 let clickPowerPriceAmount = 50;
 let clickPowerLevelNumber = 1;
@@ -94,14 +94,14 @@ buyGrandma.addEventListener("click", function()
     //upgrade power level
         grandmaLevelNumber += 1;
     //update price
-        grandmaPrice = Math.floor(grandmaPriceAmount * 1.33);
-    //updated grandma power
-        grandmaPower += 10;
+        grandmaPriceAmount = Math.floor(grandmaPriceAmount * 1.33);
     //turn autoGrandma on!
         autoGrandma = true;
         autoGrandmaStart();
     //refresh shop item
         refreshGrandma();
+        //updated grandma power
+        grandmaPower += 10;
     }
 
     //refresh shop item
@@ -112,7 +112,6 @@ let refreshGrandma = function()
 {
     grandmaLevel.innerHTML = grandmaLevelNumber;
     grandmaPrice.innerHTML = grandmaPriceAmount;
-    grandmaPower -= 10
     grandmaMultiple.innerHTML = grandmaPower
     console.log("Producing: " + grandmaPower + " cookies per second!");
 }
@@ -124,4 +123,72 @@ let autoGrandmaStart = function()
         cookieCount += grandmaPower;
         refreshCookieCount();
     }, 1000)
+}
+
+/********************************
+
+          Facilities
+
+********************************/
+//set default values
+let facilityAuto = false;
+let facilityPower = 2000;
+let facilityPriceAmount = 10000;
+let facilityLevelNumber = 0;
+
+//declare DOM variables
+let buyFacility = document.getElementById('buy-facility');
+let facilityPrice = document.getElementById('facility-price');
+let facilityLevel = document.getElementById('facility-level');
+let facilityMultiple = document.getElementById('facility-multiple');
+
+//game loop
+
+//buy a facility
+buyFacility.addEventListener("click", function()
+{
+    //set autoLoop to false
+    facilityAuto = false;
+
+    //make sure we have enough cookies
+    if(cookieCount >= facilityPriceAmount)
+    {
+        cookieCount -= facilityPriceAmount;
+        refreshCookieCount();
+
+        //upgrade power level
+        facilityLevelNumber += 1;
+
+        //update price
+        facilityPriceAmount = Math.floor(facilityPriceAmount * 1.33);
+
+        //turn autoFacility on!
+        facilityAuto = true;
+        autoFacilityStart();
+
+        //refresh shop item
+        refreshFacility();
+        //update facility power
+        facilityPower += 600;
+
+    }
+
+})
+
+//game loop
+let autoFacilityStart = function()
+{
+    let facilityInt = window.setInterval(function()
+    {
+        cookieCount += facilityPower;
+        refreshCookieCount();
+    }, 1000)
+}
+
+//refresh shop
+let refreshFacility = function()
+{
+    facilityLevel.innerHTML = facilityLevelNumber;
+    facilityPrice.innerHTML = facilityPriceAmount;
+    facilityMultiple.innerHTML = facilityPower;
 }
