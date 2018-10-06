@@ -5,7 +5,7 @@
 ********************************/
 
 //declare default variables
-let cookieCount = 1000000;
+let cookieCount = 499;
 let clickPower = 1;
 let clickPowerPriceAmount = 50;
 let clickPowerLevelNumber = 1;
@@ -47,7 +47,7 @@ buyClickPower.addEventListener("click", function() {
         clickPowerPriceAmount = Math.floor(clickPowerPriceAmount * 1.33);
 
         // update click power
-        clickPower += 1;
+        clickPower += 1 * Math.floor(clickPowerLevelNumber * 1.05);
 
         // refresh shop item
         refreshPowerClick();
@@ -99,9 +99,9 @@ buyGrandma.addEventListener("click", function()
         autoGrandma = true;
         autoGrandmaStart();
     //refresh shop item
+    //updated grandma power
+        grandmaPower += 10 + Math.floor(grandmaLevelNumber * 1.33);
         refreshGrandma();
-        //updated grandma power
-        grandmaPower += 10;
     }
 
     //refresh shop item
@@ -112,7 +112,7 @@ let refreshGrandma = function()
 {
     grandmaLevel.innerHTML = grandmaLevelNumber;
     grandmaPrice.innerHTML = grandmaPriceAmount;
-    grandmaMultiple.innerHTML = grandmaPower
+    grandmaMultiple.innerHTML = grandmaPower - 10;
     console.log("Producing: " + grandmaPower + " cookies per second!");
 }
 
@@ -122,8 +122,56 @@ let autoGrandmaStart = function()
     {
         cookieCount += grandmaPower;
         refreshCookieCount();
-    }, 1000)
+    }, 1000);
 }
+
+/********************************
+
+        Grandma Steroids
+
+********************************/
+//set default values
+let steroidPower = 1;
+let steroidPriceAmount = 10;
+let steroidLevelNumber = 0;
+
+//declare DOM variables
+let buySteroid = document.getElementById('buy-steroid');
+let steroidPrice = document.getElementById('steroid-price');
+let steroidLevel = document.getElementById('steroid-level');
+let steroidMultiple = document.getElementById('steroid-multiple');
+
+//buy a steroid
+buySteroid.addEventListener("click", function()
+{
+    // make sure we have enough cookies and subtract our cookies from the price
+    if(cookieCount >= steroidPriceAmount)
+    {
+        cookieCount -= steroidPriceAmount;
+        refreshCookieCount();
+    //upgrade power level
+        steroidLevelNumber += 1;
+    //update price
+        steroidPriceAmount = Math.floor(steroidPriceAmount * 1.33);
+    //refresh shop item
+    //updated steroid power
+        steroidPower += 1;
+        grandmaPower = Math.floor(grandmaPower * steroidMultiplier)
+        refreshSteroid();
+    }
+
+    //refresh shop item
+
+})
+
+let refreshSteroid = function()
+{
+    steroidLevel.innerHTML = steroidLevelNumber;
+    steroidPrice.innerHTML = steroidPriceAmount;
+    steroidMultiple.innerHTML = steroidPower - 10;
+    console.log("Producing: " + steroidPower + " cookies per second!");
+}
+
 
 /********************************
 
@@ -133,7 +181,7 @@ let autoGrandmaStart = function()
 //set default values
 let facilityAuto = false;
 let facilityPower = 2000;
-let facilityPriceAmount = 10000;
+let facilityPriceAmount = 100000;
 let facilityLevelNumber = 0;
 
 //declare DOM variables
@@ -169,7 +217,7 @@ buyFacility.addEventListener("click", function()
         //refresh shop item
         refreshFacility();
         //update facility power
-        facilityPower += 600;
+        facilityPower += 600 + Math.floor(grandmaLevelNumber * 1.33);
 
     }
 
@@ -182,7 +230,7 @@ let autoFacilityStart = function()
     {
         cookieCount += facilityPower;
         refreshCookieCount();
-    }, 1000)
+    }, 1000);
 }
 
 //refresh shop
@@ -190,5 +238,54 @@ let refreshFacility = function()
 {
     facilityLevel.innerHTML = facilityLevelNumber;
     facilityPrice.innerHTML = facilityPriceAmount;
-    facilityMultiple.innerHTML = facilityPower;
+    facilityMultiple.innerHTML = facilityPower - 600;
 }
+
+// /********************************
+//
+//     Grandma Steroids
+//
+// ********************************/
+// // set default values
+//
+// let steroidPriceAmount = 100;
+// let steroidLevelNumber = 0;
+// let steroidMultiplier = 1;
+//
+// //declare DOM variables
+// let buySteroid = document.getElementById('buy-steroid');
+// let steroidPrice = document.getElementById('steroid-price');
+// let steroidLevel = document.getElementById('steroid-level');
+// let steroidMultiple = document.getElementById('steroid-multiple');
+//
+// buySteroid.addEventListener("click", function()
+// {
+//     if(cookieCount >= homePrice)
+//     {
+//         cookieCount -= steroidPriceAmount;
+//         refreshCookieCount();
+//
+//         //update level
+//         steroidLevelNumber += 1;
+//
+//         //update price
+//         steroidPriceAmount = Math.floor(steroidPriceAmount * 1.33);
+//
+//         //update steroid steroid multiplier
+//         steroidMultiplier += 1;
+//
+//         //multiply grandma's power
+//         grandmaPower = Math.floor(grandmaPower * steroidMultiplier)
+//
+//         refreshSteroid();
+//
+//     }
+// })
+//
+// //refresh shop
+// let refreshSteroid = function()
+// {
+//     steroidPrice.innerHTML = steroidPriceAmount;
+//     steroidLevel.innerHTML = steroidLevelNumber;
+//     steroidMultiple.innerHTML = steroidMultiplier;
+// }
